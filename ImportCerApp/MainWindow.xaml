@@ -4,9 +4,51 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImportCerApp"
+        xmlns:controls="clr-namespace:ImportCerApp"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Azure KeyValut :: Cert Tools" Height="517.252" Width="691.985">
+    <Window.Resources>
+        <Style x:Key="Link" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#FFE8E8E8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock TextDecorations="Underline" 
+                    Text="{TemplateBinding Content}"
+                    Background="{TemplateBinding Background}"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+
+        <DockPanel LastChildFill="True" >
+            <StackPanel  DockPanel.Dock="Left" Width="150" Background="#FF3C3C3C" Orientation="Vertical" >
+                <Button Style="{StaticResource Link}" Margin="0,0,0,10" Content="Create" Height="20" Tag="CreateControl" Click="MenuOption_Click"/>
+                <Button Style="{StaticResource Link}" Margin="0,5,0,10" Content="Import" Height="20" Tag="ImportControl" Click="MenuOption_Click"/>
+            </StackPanel>
+
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <controls:ImportCertControl x:Name="ImportContol" HorizontalAlignment="Stretch" VerticalAlignment="Center" Visibility="Collapsed" />
+                <controls:CreateCertControl x:Name="CreateControl" HorizontalAlignment="Stretch" VerticalAlignment="Center" Visibility="Collapsed" />
+            </Grid>
+
+
+        </DockPanel>
+
+        <toolkit:BusyIndicator x:Name="ActivityIndicator">
+            <ContentControl />
+        </toolkit:BusyIndicator>
     </Grid>
 </Window>

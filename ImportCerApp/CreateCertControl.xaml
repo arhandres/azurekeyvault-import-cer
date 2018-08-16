@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="ImportCerApp.CreateCertControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ImportCerApp"
+             xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             Width="Auto"
+             Height="Auto"
+             HorizontalAlignment="Stretch" 
+             VerticalAlignment="Stretch"
+             HorizontalContentAlignment="Stretch"
+             VerticalContentAlignment="Stretch">
+    <StackPanel>
+        <GroupBox Header="Certificate Info" Margin="10">
+            <Grid Margin="10" MinHeight="200">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Distinguished Name:</Label>
+                <TextBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="NameTextBox"></TextBox>
+
+                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"  HorizontalAlignment="Right">Key size:</Label>
+                <ComboBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="KeySizeSelect">
+                    <ComboBoxItem>1024</ComboBoxItem>
+                    <ComboBoxItem>2048</ComboBoxItem>
+                    <ComboBoxItem>4096</ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"  HorizontalAlignment="Right">Hash:</Label>
+                <ComboBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" x:Name="HashSelect">
+                    <ComboBoxItem>SHA256</ComboBoxItem>
+                    <ComboBoxItem>SHA512</ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center"  HorizontalAlignment="Right">Valid From:</Label>
+                <DatePicker Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" x:Name="ValidFromDate" />
+
+                <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"  HorizontalAlignment="Right">Valid To:</Label>
+                <DatePicker Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" x:Name="ValidToDate" />
+
+                <CheckBox Grid.Column="1" Grid.Row="5" Content="View advanced" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ViewAdvancedCheck" Checked="ViewAdvancedCheck_Checked" Unchecked="ViewAdvancedCheck_Unchecked" />
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="AdvancedGroup" Grid.Row="1" Header="Advanced Certificate Info" Margin="10" Visibility="Collapsed">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Is used as a CA:</Label>
+                <CheckBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="AsCACheck" />
+
+                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Key Usage:</Label>
+                <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <CheckBox x:Name="DigitalSignatureCheck" Content="DigitalSignature"/>
+                    <CheckBox x:Name="KeyEnciphermentCheck" Content="KeyEncipherment"/>
+                    <CheckBox x:Name="NonRepudiationCheck" Content="NonRepudiation"/>
+                    <CheckBox x:Name="KeyAgreementCheck" Content="KeyAgreement"/>
+                </StackPanel>
+
+                <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">All critical:</Label>
+                <CheckBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="AllCriticalCheckbox" />
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="2" FlowDirection="LeftToRight" Margin="10">
+            <toolkit:DropDownButton Content="Create" HorizontalAlignment="Right" Width="100" >
+                <toolkit:DropDownButton.DropDownContent>
+                    <StackPanel Width="100">
+                        <Button x:Name="CreateCsrPEMButton" Content="CSR - PEM" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" MinHeight="20" Click="CreateCsrButton_Click" Margin="5" Tag="PEM" />
+                        <Button x:Name="CreateCsrDERButton" Content="CSR - DER" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" MinHeight="20" Click="CreateCsrButton_Click" Margin="5" Tag="DER" />
+                        <!--<Button x:Name="CreateCerPEMButton" Content="CER - PEM" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" MinHeight="20" Click="CreateCertButton_Click" Margin="5" Tag="PEM" />-->
+                        <Button x:Name="CreateCerDERButton" Content="CER - DER" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" MinHeight="20" Click="CreateCertButton_Click" Margin="5" Tag="DER" />
+                    </StackPanel>
+                </toolkit:DropDownButton.DropDownContent>
+            </toolkit:DropDownButton>
+        </Grid>
+    </StackPanel>
+</UserControl>
