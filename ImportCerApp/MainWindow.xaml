@@ -34,13 +34,20 @@
     <Grid>
 
         <DockPanel LastChildFill="True" >
-            <StackPanel  DockPanel.Dock="Left" Width="150" Background="#FF3C3C3C" Orientation="Vertical" >
-                <Button Style="{StaticResource Link}" Margin="0,0,0,10" Content="Create" Height="20" Tag="CreateControl" Click="MenuOption_Click"/>
-                <Button Style="{StaticResource Link}" Margin="0,5,0,10" Content="Import" Height="20" Tag="ImportControl" Click="MenuOption_Click"/>
+
+            <Menu DockPanel.Dock="Top" FlowDirection="RightToLeft">
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_About..." Click="MenuItem_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <StackPanel  DockPanel.Dock="Left" Width="150" Background="#FF3C3C3C" Orientation="Vertical" Margin="0"  >
+                <Button Style="{StaticResource Link}" Margin="0,10" Content="Create CER" Height="20" Tag="CreateControl" Click="MenuOption_Click"/>
+                <Button Style="{StaticResource Link}" Margin="0,5,0,10" Content="KeyVault Import" Height="20" Tag="ImportControl" Click="MenuOption_Click"/>
             </StackPanel>
 
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <controls:ImportCertControl x:Name="ImportContol" HorizontalAlignment="Stretch" VerticalAlignment="Center" Visibility="Collapsed" />
+                <controls:ImportCertControl x:Name="ImportContol" HorizontalAlignment="Stretch" VerticalAlignment="Center" Visibility="Collapsed"  />
                 <controls:CreateCertControl x:Name="CreateControl" HorizontalAlignment="Stretch" VerticalAlignment="Center" Visibility="Collapsed" />
             </Grid>
 

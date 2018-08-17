@@ -18,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ImportCerApp
-{   
+{
     public partial class CreateCertControl : UserControl
     {
         public CreateCertControl()
@@ -76,7 +76,7 @@ namespace ImportCerApp
         {
             var info = this.GetCertificateInfo();
 
-            var rsa = this.CreateRSAKey(info.Size);
+            var rsa = RSA.Create(info.Size);
 
             var request = new CertificateRequest(info.Name, rsa, info.Hash, RSASignaturePadding.Pss);
 
@@ -91,6 +91,14 @@ namespace ImportCerApp
                 request.CertificateExtensions.Add(new X509KeyUsageExtension(flags, info.IsCritical));
             }
 
+            var fullPath = Export(request, info, output);
+
+            if (!string.IsNullOrEmpty(fullPath))
+                MessageBox.Show($"Created: {fullPath}");
+        }
+
+        private string Export(CertificateRequest request, CertificateInfo info, OutputType output)
+        {
             var outputDir = Config.GetValue<string>("OutputDir");
             var fullPath = string.Empty;
 
@@ -144,7 +152,6 @@ namespace ImportCerApp
                         else
                         {
                             MessageBox.Show("The password are different");
-                            return;
                         }
                     }
                     break;
@@ -156,12 +163,7 @@ namespace ImportCerApp
 
             }
 
-            MessageBox.Show($"Created: {fullPath}");
-        }
-
-        private RSA CreateRSAKey(int size)
-        {
-            return RSA.Create(size);
+            return fullPath;
         }
 
         private void ViewAdvancedCheck_Checked(object sender, RoutedEventArgs e)

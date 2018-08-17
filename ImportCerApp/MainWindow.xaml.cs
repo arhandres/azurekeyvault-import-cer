@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,6 +70,36 @@ namespace ImportCerApp
                     this.ImportContol.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink link = new Hyperlink();
+            link.NavigateUri = new Uri("http://andres.im", UriKind.Absolute);
+            link.Inlines.Add("andres.im");
+            link.RequestNavigate += (s, ev) =>
+            {
+                Process.Start(new ProcessStartInfo(ev.Uri.AbsoluteUri));
+                ev.Handled = true;
+            };
+
+            var window = new Window();
+            var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
+            stackPanel.Children.Add(new Label { Content = link, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center });
+            window.Content = stackPanel;
+            window.ResizeMode = ResizeMode.NoResize;
+            window.Height = 100;
+            window.Width = 200;
+
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = window.Width;
+            double windowHeight = window.Height;
+            window.Left = (screenWidth / 2) - (windowWidth / 2);
+            window.Top = (screenHeight / 2) - (windowHeight / 2);
+
+
+            window.ShowDialog();
         }
     }
 }
